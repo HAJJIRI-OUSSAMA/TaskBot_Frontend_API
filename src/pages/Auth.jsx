@@ -52,10 +52,10 @@ export default function Auth() {
 
   return (
     
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-700">
+    <div className="min-h-screen flex items-center justify-center bg-purple-900">
       <Navbar />
       <div className="bg-white shadow-2xl rounded-lg p-8 w-full max-w-sm animate-fade-in">
-        <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
+        <h1 className="text-3xl font-extrabold text-center text-black mb-6">
           {isRegister ? 'Create an Account 🚀' : 'Welcome Back 👋'}
         </h1>
         {errorMessage && (
@@ -121,7 +121,7 @@ export default function Auth() {
           <button
             type="submit"
             className={`w-full ${
-              isRegister ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'
+              isRegister ? 'bg-green-500 hover:bg-green-600' : 'bg-purple-900 hover:bg-blue-600'
             } text-white font-bold py-3 rounded-lg transition duration-300 shadow-md`}
           >
             {isRegister ? 'Sign Up' : 'Login'}
@@ -133,7 +133,7 @@ export default function Auth() {
               Already have an account?{' '}
               <button
                 onClick={() => setIsRegister(false)}
-                className="text-blue-500 hover:underline focus:outline-none"
+                className="text-purple-900 hover:underline focus:outline-none"
               >
                 Login
               </button>

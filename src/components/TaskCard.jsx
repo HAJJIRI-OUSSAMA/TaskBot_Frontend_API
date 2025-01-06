@@ -85,11 +85,11 @@ export default function TaskCard() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen p-8 flex flex-col gap-6 items-center">
+    <div className="bg-transparent min-h-screen p-8 flex flex-col gap-6 items-center">
       {error && <div className="text-red-500">{error}</div>}
 
       {/* Add Task Form */}
-      <div className="h-full max-w-md bg-white p-6 rounded-lg shadow-md mb-6">
+      {/* <div className="h-full max-w-md bg-white p-6 rounded-lg shadow-md mb-6">
         <h3 className="text-xl font-bold mb-4">Add a New Task</h3>
         <form onSubmit={handleAddTask} className="space-y-4">
           <div>
@@ -155,7 +155,7 @@ export default function TaskCard() {
             Add Task
           </button>
         </form>
-      </div>
+      </div> */}
 
       {/* Display Tasks */}
       {tasks.map((task) => (
@@ -165,30 +165,30 @@ export default function TaskCard() {
         >
           {/* Task Header */}
           <div className="flex justify-between items-center mb-2">
-            <h3 className="text-2xl font-bold text-blue-700 truncate">{task.title}</h3>
-            <span className={`text-xs font-semibold px-2 py-1 rounded-full`}>
+            <h3 className="text-2xl font-bold text-white truncate">{task.title}</h3>
+            <span className={`text-m font-bold px-2 py-1 rounded-full text-white`}>
               {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
             </span>
           </div>
 
           {/* Task Description */}
-          <p className="text-gray-600 mb-4 line-clamp-3">{task.description}</p>
+          <p className="text-gray-500 mb-4 line-clamp-3">{task.description}</p>
 
           {/* Task Footer */}
           <div className="flex items-center justify-between text-sm text-gray-500">
-            <span className="font-medium">📅 Due: {new Date(task.dueDate).toLocaleDateString()}</span>
+            <span className="font-medium">  Due: {new Date(task.dueDate).toLocaleDateString()}</span>
             <div className="flex gap-2">
-              <button
+              {/* <button
                 onClick={() => handleUpdateTask(task._id, { status: 'completed' })}
                 className={`bg-green-500 text-white px-4 py-1.5 rounded-full shadow-md hover:bg-green-600 transition-all`}
               >
                 Complete
-              </button>
+              </button> */}
               <button
                 onClick={() => handleDeleteTask(task._id)}
-                className={`bg-red-500 text-white px-4 py-1.5 rounded-full shadow-md hover:bg-red-600 transition-all`}
+                className={` bg-[#43D8C9] text-purple-700 rounded-lg px-4 py-1.5 shadow-md font-bold hover:bg-[#43D8C9] hover:text-black transition-all border-2`}
               >
-                Delete
+                Done
               </button>
             </div>
           </div>

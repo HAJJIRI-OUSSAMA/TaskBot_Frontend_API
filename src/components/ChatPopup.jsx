@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import bot from "../assets/bot.png";
 
 export default function ChatPopup({ onTaskUpdate }) {
   const [messages, setMessages] = useState([]);
@@ -25,41 +26,43 @@ export default function ChatPopup({ onTaskUpdate }) {
         return;
       }
 
-      const url = {
-        "Create Task": "https://backend-56gc.onrender.com/api/tasks",
-        "Update Task": `https://backend-56gc.onrender.com/${input.split(":")[0].trim()}`,
-        "Delete Task": `https://backend-56gc.onrender.com/${input.trim()}`,
-      };
-
       let response;
 
       if (selectedAction === "Create Task") {
         response = await axios.post(
-          url[selectedAction],
+          "https://backend-56gc.onrender.com/api/tasks",
           { message: input },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-      } else if (selectedAction === "Delete Task") {
-        response = await axios.delete(url[selectedAction], {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-      } else {
-        const [taskId, taskUpdate] = input.split(":");
+      } else if (selectedAction === "Update Task") {
+        // Handle Update Task
+        const [taskId, updateInstruction] = input.split(":");
+
+        if (!taskId || !updateInstruction) {
+          toast.error("Invalid input format. Please provide 'Task ID: Update Instruction'.");
+          return;
+        }
+
+        // Send Update Request to the Backend
         response = await axios.put(
-          url[selectedAction],
-          { title: taskUpdate.trim() },
+          `https://backend-56gc.onrender.com/api/tasks/${taskId.trim()}`,
+          { updateInstruction: updateInstruction.trim() },
           { headers: { Authorization: `Bearer ${token}` } }
         );
+      } else if (selectedAction === "Delete Task") {
+        response = await axios.delete(`https://backend-56gc.onrender.com/api/tasks/${input.trim()}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       }
 
       const botResponse = response.data.task || response.data.message;
       setMessages((prev) => [...prev, { sender: "bot", text: JSON.stringify(botResponse) }]);
 
-      if (onTaskUpdate) onTaskUpdate();
+      if (onTaskUpdate) onTaskUpdate(); // Refresh tasks if required
       toast.success(`${selectedAction} completed successfully!`);
     } catch (error) {
-      console.error("Error interacting with API:", error.message);
-      toast.error("Failed to process the request.");
+      console.error("Error interacting with API:", error.response?.data || error.message);
+      toast.error(error.response?.data?.error || "Failed to process the request.");
     }
 
     setInput("");
@@ -71,9 +74,10 @@ export default function ChatPopup({ onTaskUpdate }) {
       {/* Chat Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-full shadow-lg hover:scale-110 transform transition-all duration-300 ease-in-out"
+        className="fixed bottom-6 right-6 bg-white text-white p-1 rounded-full shadow-lg hover:scale-110 transform transition-all duration-300 ease-in-out"
       >
-        💬
+        <img src={bot} alt="" width={50}/>
+        
       </button>
 
       {/* Chat Popup */}

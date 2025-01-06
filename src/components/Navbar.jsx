@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import img from'../assets/fruit.png';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -13,17 +14,15 @@ export default function Navbar() {
   const isLoggedIn = !!localStorage.getItem("token"); // Check if the user is logged in
 
   return (
-    <nav className="bg-gradient-to-r from-blue-500 to-indigo-700 shadow-lg text-white fixed top-0 left-0 w-full z-50">
+    <nav className="bg-gradient-to-r from-black to-black shadow-lg text-white fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <div className="bg-white text-blue-500 p-2 rounded-full shadow-md">
-            <span className="text-2xl font-extrabold tracking-wider">TB</span>
-          </div>
-          <Link to="/" className="text-2xl font-bold tracking-wide hover:text-gray-200 transition duration-300">
-            TaskBot
-          </Link>
-        </div>
+  <Link to="/" className="flex items-center text-2xl font-bold tracking-wide hover:text-gray-200 transition duration-300">
+    <img src={img} alt="logo" className="w-8 h-8 mr-2" />
+    TaskBot
+  </Link>
+</div>
 
         {/* Navigation Links */}
         <div className="flex space-x-6">
@@ -42,14 +41,14 @@ export default function Navbar() {
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
-              className="bg-red-500 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-red-600 transition duration-300"
+              className="bg-purple-800 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-red-600 transition duration-300"
             >
               Logout
             </button>
           ) : (
             <Link
               to="/login"
-              className="bg-white text-blue-500 font-semibold py-2 px-4 rounded-full shadow hover:bg-gray-200 transition duration-300"
+              className="bg-purple-800  text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-gray-200 transition duration-300"
             >
               Login
             </Link>

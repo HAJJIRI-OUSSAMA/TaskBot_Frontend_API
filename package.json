@@ -12,10 +12,13 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
+    "array-move": "^4.0.0",
     "axios": "^1.7.9",
     "react": "^18.3.1",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.2",
+    "react-sortable-hoc": "^2.0.0",
     "react-toastify": "^10.0.6"
   },
   "devDependencies": {
