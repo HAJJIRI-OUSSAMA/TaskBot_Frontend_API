@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function TaskCard() {
   const [tasks, setTasks] = useState([]); // Tasks from the backend
   const [error, setError] = useState(null); // Error handling
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    dueDate: '',
-    priority: 'medium',
-  }); // Form data for new task
   const token = localStorage.getItem('token'); // Retrieve token from localStorage
 
   // Fetch tasks from the backend
@@ -28,50 +22,6 @@ export default function TaskCard() {
     fetchTasks();
   }, [token]);
 
-  // Handle form input changes
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Add a new task
-  const handleAddTask = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        'https://backend-56gc.onrender.com/api/tasks',
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-        }
-      );
-      setTasks((prevTasks) => [...prevTasks, response.data]); // Update tasks state with the new task
-      setFormData({ title: '', description: '', dueDate: '', priority: 'medium' }); // Reset the form
-    } catch (err) {
-      setError('Failed to add task. Please try again.');
-      console.error(err);
-    }
-  };
-
-  // Update a task
-  const handleUpdateTask = async (taskId, updatedData) => {
-    try {
-      const response = await axios.put(
-        `https://backend-56gc.onrender.com/api/tasks/${taskId}`,
-        updatedData,
-        {
-          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-        }
-      );
-      setTasks((prevTasks) =>
-        prevTasks.map((task) => (task._id === taskId ? { ...task, ...response.data } : task))
-      );
-    } catch (err) {
-      setError('Failed to update task. Please try again.');
-      console.error(err);
-    }
-  };
-
-  // Delete a task
   const handleDeleteTask = async (taskId) => {
     try {
       await axios.delete(`https://backend-56gc.onrender.com/api/tasks/${taskId}`, {

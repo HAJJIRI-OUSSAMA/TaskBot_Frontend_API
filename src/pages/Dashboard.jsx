@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import TaskCard from '../components/TaskCard';
 import ChatPopup from '../components/ChatPopup';
@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import main from '../assets/main.png';
 
 export default function Dashboard() {
+  // eslint-disable-next-line no-unused-vars
   const [tasks, setTasks] = useState([
     { id: 1, title: 'Example Task', description: 'This is a task description', dueDate: '2024-12-25' },
   ]);

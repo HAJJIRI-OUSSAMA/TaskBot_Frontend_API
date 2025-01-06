@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import bot from "../assets/bot.png";
 
-export default function ChatPopup({ onTaskUpdate }) {
+export default function ChatPopup() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [selectedAction, setSelectedAction] = useState("");
@@ -58,7 +58,6 @@ export default function ChatPopup({ onTaskUpdate }) {
       const botResponse = response.data.task || response.data.message;
       setMessages((prev) => [...prev, { sender: "bot", text: JSON.stringify(botResponse) }]);
 
-      if (onTaskUpdate) onTaskUpdate(); // Refresh tasks if required
       toast.success(`${selectedAction} completed successfully!`);
     } catch (error) {
       console.error("Error interacting with API:", error.response?.data || error.message);

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 
@@ -140,7 +140,7 @@ export default function Auth() {
             </>
           ) : (
             <>
-              Don't have an account?{' '}
+              Don t have an account?{' '}
               <button
                 onClick={() => setIsRegister(true)}
                 className="text-blue-500 hover:underline focus:outline-none"
